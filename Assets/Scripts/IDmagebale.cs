@@ -1,7 +1,7 @@
 public interface IDmagebale {
 
 
-    void TakeDamage();
+    void TakeDamage(int damage);
 
 
 

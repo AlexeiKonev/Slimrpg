@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
     IDmagebale damagebale;
+   public int damage;
     void Start() {
 
     }
@@ -14,7 +15,7 @@ public class Bullet : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Enemy") {
             if(other.gameObject.TryGetComponent<IDmagebale>(out damagebale)) {
-                damagebale.TakeDamage();
+                damagebale.TakeDamage(damage);
             }
         }
 

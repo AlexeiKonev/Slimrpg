@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SlimeGame : MonoBehaviour
 {
+   public int attack = 1;
+
  public static  SlimeGame instance;
     void Awake()
     {
