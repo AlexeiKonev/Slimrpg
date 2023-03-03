@@ -65,5 +65,9 @@ public class SlimeGame : MonoBehaviour {
     }
     void UpdateUI(Text some,int change) {
         some.text = change.ToString();
+    } 
+    public void AddMoney( ) {
+        money++;
+        UpdateUI(textMoney, money);
     }
 }
