@@ -109,6 +109,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2408360756693285987}
+  - {fileID: 5977146014906916044}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,7 +133,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0ab0cca81f7334e85187c0bdfa548c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthbar: {fileID: 678961656644889738}
+  health: 20
+  enemyAttack: 2
+  healthBar: {fileID: 678961656644889738}
+  damageTextPrefab: {fileID: 2136554762789026777, guid: 192cc80e3ef597f428f506c0d1751f67, type: 3}
+  healthBarPosition: {fileID: 5977146014906916044}
+  damageTextPosition: {fileID: 5977146014906916044}
 --- !u!23 &6467773658649264911
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -252,7 +258,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 678961656644889738}
-  targetTransform: {fileID: 1171120405736733938}
+  damageText: {fileID: 3062595157300214897, guid: fdd5514d25166444b9da8c86262c0b42, type: 3}
+  targetTransform: {fileID: 5977146014906916044}
   offset: {x: 0, y: 0, z: 0}
 --- !u!114 &678961656644889738
 MonoBehaviour:
@@ -305,6 +312,37 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &6508404244604348261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5977146014906916044}
+  m_Layer: 0
+  m_Name: holderui
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5977146014906916044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6508404244604348261}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.013, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1171120405736733938}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7182743784656450270
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
-    IDmagebale damagebale;
+    IDamageable damagebale;
 
 
     public float speed = 10f; // Скорость пули
@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Enemy") {
-            if (other.gameObject.TryGetComponent<IDmagebale>(out damagebale)) {
+            if (other.gameObject.TryGetComponent<IDamageable>(out damagebale)) {
                 damagebale.TakeDamage(damage);
                 Destroy(gameObject);
             }

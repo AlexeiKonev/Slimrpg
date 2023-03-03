@@ -1,82 +1,75 @@
-using Slime;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
-public class Enemy : MonoBehaviour, IDmagebale {
-    int health = 20;
-    int enemyAttack =2;
-    private bool canShoot =false;
-    private float delayAttack =0.5f;
+
+
+public class Enemy : MonoBehaviour, IDamageable {
+    public int health = 20;
+    public int enemyAttack = 2;
+    private bool canShoot = false;
+    private float delayAttack = 0.5f;
     private Transform closestEnemy;
-    private bool EnemyMov;
-    private float speed =4f;
-    public Slider healthbar;
+    private bool enemyMov;
+    private float speed = 4f;
+    public Slider healthBar;
+    public GameObject damageTextPrefab;
+    public Transform healthBarPosition;
+    public Transform damageTextPosition;
 
     public Action<GameObject> OnDeath { get; internal set; }
 
     public void TakeDamage(int damage) {
         if (health > 0) {
             health -= damage;
-            healthbar.value =(float) health/1000;
-            Debug.Log($"enemy take {damage}health is{health}");
+            healthBar.value = (float)health / 1000;
+            Debug.Log($"Enemy takes {damage} damage, health is {health}");
+
+            // Instantiate damage text above the enemy
+            GameObject damageText = Instantiate(damageTextPrefab, damageTextPosition.position, Quaternion.identity);
+            damageText.GetComponent<TextMesh>().text = "-" + damage.ToString();
         }
         else {
             SlimeGame.instance.AddMoney();
             Destroy(gameObject);
         }
-
     }
 
-    // Start is called before the first frame update
-    void Start() {
-
-    }
-
-    // Update is called once per frame
     void Update() {
         closestEnemy = FindEnemy();
 
         if (closestEnemy != null && canShoot) {
-
             StartCoroutine(ShootDelay());
             ShootBullet(closestEnemy);
         }
         else {
-            EnemyMov = true;
+            enemyMov = true;
         }
 
-        if (EnemyMov) {
+        if (enemyMov) {
             MoveToPlayer();
         }
-        
-
     }
 
     private void ShootBullet(Transform closestEnemy) {
-      if(  closestEnemy.gameObject.TryGetComponent<IDmagebale>(out IDmagebale player)){
+        if (closestEnemy.gameObject.TryGetComponent<IDamageable>(out IDamageable player)) {
             player.TakeDamage(enemyAttack);
         }
     }
 
     private IEnumerator ShootDelay() {
-
-
-
-        canShoot = false; // запрещаем стрельбу
+        canShoot = false;
         yield return new WaitForSeconds(delayAttack);
-        canShoot = true; // разрешаем стрельбу
+        canShoot = true;
     }
+
     private Transform FindEnemy() {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Player");
 
         if (enemies.Length == 0) {
-           
             return null;
         }
-
 
         Transform nearestEnemy = enemies[0].transform;
         float distanceForNearestEnemy = Vector3.Distance(nearestEnemy.transform.position, transform.position);
@@ -93,29 +86,20 @@ public class Enemy : MonoBehaviour, IDmagebale {
 
         return nearestEnemy;
     }
+
     void MoveToPlayer() {
-        //if (target == null) {
-        //    // Если цель была уничтожена, уничтожаем и пулю
-        //    Destroy(gameObject);
-        //    return;
-        //}
-
-        // Направление движения пули к цели
         Vector3 direction = closestEnemy.position - transform.position;
-
-        // Расстояние до цели
         float distanceThisFrame = speed * Time.deltaTime;
-
-
-
-
-        // Перемещаем пулю в направлении цели
         transform.Translate(direction.normalized * distanceThisFrame, Space.World);
+
+        // Set health bar position above the enemy
+        healthBarPosition.position = transform.position + Vector3.up * 1.5f;
     }
+
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "Player") {
-            Debug.Log("switchoff moving enemy");
-            EnemyMov = false;
+        if (other.gameObject.CompareTag("Player")) {
+            Debug.Log("Switch off moving enemy");
+            enemyMov = false;
         }
     }
 }
