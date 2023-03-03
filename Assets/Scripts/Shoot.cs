@@ -4,32 +4,17 @@ using UnityEngine;
 public class Shoot : MonoBehaviour {
     public GameObject bulletPrefab;//ссылка на обьект пули
     public Transform shootPoint;
-    public float delayAttack = 2f;
-    //public Transform enemyPoint;
-
-    public GameObject closestEnemy;
-
+    public float delayAttack = 20f;
+    private bool canShoot = true;
 
     private void Update() {
-        //if (Input.GetButtonDown("Fire1")) {
-        //    ShootBullet();
-        //}
         Transform closestEnemy = FindEnemy();
 
-        if (closestEnemy != null) {
+        if (closestEnemy != null && canShoot) {
+
             StartCoroutine(ShootDelay());
             ShootBullet(closestEnemy);
-
-
         }
-
-    }
-
-    private void ShootBullet(Transform enemyPoint) {
-        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-        Bullet bulletComponent = bullet.GetComponent<Bullet>();
-        bulletComponent.damage = SlimeGame.instance.attack;//обращаемся к синглтону и задаем  силу атаки
-        bulletComponent.SetTarget(enemyPoint);//обращаемся к синглтону и задаем  силу атаки
     }
 
 
@@ -55,8 +40,22 @@ public class Shoot : MonoBehaviour {
         return nearestEnemy;
     }
 
-    IEnumerator ShootDelay() {
 
+
+    private IEnumerator ShootDelay() {
+
+
+
+        canShoot = false; // запрещаем стрельбу
         yield return new WaitForSeconds(delayAttack);
+        canShoot = true; // разрешаем стрельбу
     }
+
+    private void ShootBullet(Transform enemyPoint) {
+        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
+        Bullet bulletComponent = bullet.GetComponent<Bullet>();
+        bulletComponent.damage = SlimeGame.instance.attack;
+        bulletComponent.SetTarget(enemyPoint);
+    }
+
 }
