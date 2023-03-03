@@ -589,7 +589,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 768131825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.79}
+  m_LocalPosition: {x: 0, y: 0.48, z: 0.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -623,7 +623,7 @@ GameObject:
   - component: {fileID: 794060685}
   - component: {fileID: 794060684}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: moneyText (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -812,7 +812,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf4e20d2185be34092f088a4bf27184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMoney: {fileID: 794060684}
+  textAttack: {fileID: 2013770364}
+  textHealth: {fileID: 1847519387}
+  textAttackCost: {fileID: 1341171577}
+  textHealthCost: {fileID: 1179568273}
+  money: 3
   attack: 1
+  health: 10
+  attackCost: 1
+  healthCost: 1
 --- !u!4 &1058199418
 Transform:
   m_ObjectHideFlags: 0
@@ -1286,7 +1295,7 @@ GameObject:
   - component: {fileID: 1467443284}
   - component: {fileID: 1467443283}
   m_Layer: 5
-  m_Name: AttackAbility
+  m_Name: BuyAttackAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1513,7 +1522,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1631900910}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1058199417}
+        m_TargetAssemblyTypeName: SlimeGame, Assembly-CSharp
+        m_MethodName: BuyAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1631900910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1795,7 +1816,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2107273221}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1058199417}
+        m_TargetAssemblyTypeName: SlimeGame, Assembly-CSharp
+        m_MethodName: BuyHealth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2107273221
 MonoBehaviour:
   m_ObjectHideFlags: 0
