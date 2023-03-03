@@ -9,6 +9,7 @@ public class Shoot : MonoBehaviour {
     public Transform closestEnemy;
    public PlayerMovement playerMov;
     private void Update() {
+       
         closestEnemy = FindEnemy();
 
         if (closestEnemy != null && canShoot) {
@@ -21,7 +22,9 @@ public class Shoot : MonoBehaviour {
         }
     }
 
-
+ public void   ChangeDelay(float someValue) {
+        delayAttack -= someValue  ;
+    }
     private Transform FindEnemy() {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 

@@ -1,4 +1,3 @@
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,6 +5,7 @@ using UnityEngine.UI;
 /// синглтон для управления ресурсами игры
 /// </summary>
 public class SlimeGame : MonoBehaviour {
+    public Shoot shoot;
 
     public Text textMoney;
     public Text textAttack;
@@ -30,6 +30,9 @@ public class SlimeGame : MonoBehaviour {
 
     public GameObject GameOverScreen;
 
+    private int attackSpeedCost;
+    private float attackSpeed;
+
     void Awake() {
         if (instance == null) {
             instance = gameObject.GetComponent<SlimeGame>();
@@ -40,10 +43,10 @@ public class SlimeGame : MonoBehaviour {
         if (money > 0) {
             UpdateUI(textMoney, money);
         }
-      
+
         UpdateUI(textAttack, attack);
         UpdateUI(textHealth, health);
-       
+
     }
 
     public void BuyAttack() {
@@ -51,6 +54,21 @@ public class SlimeGame : MonoBehaviour {
             money -= attackCost;
             attack++;
             attackCost++;//увеличим цену
+
+
+            //изменим ui
+
+            UpdateUI(textMoney, money);
+            UpdateUI(textAttack, attack);
+            UpdateUI(textAttackCost, attackCost);
+        }
+    }
+    public void BuyAttackSpeed() {
+        if (money > 0) {
+            money -= attackSpeedCost;
+            attackSpeed+=.2f;
+            attackSpeedCost++;//увеличим цену
+            shoot.ChangeDelay(attackSpeed);
 
 
             //изменим ui
@@ -81,14 +99,15 @@ public class SlimeGame : MonoBehaviour {
         UpdateUI(textMoney, money);
     }
     public void ShowGameOver() {
-        GameOverScreen.SetActive(true); 
+        GameOverScreen.SetActive(true);
         Time.timeScale = 0;
-    } 
- public  void RestartLevel() {
-        SceneManager.LoadScene(0); 
+    }
+    public void RestartLevel() {
+        SceneManager.LoadScene(0);
         Time.timeScale = 1;
 
 
 
     }
 }
+
