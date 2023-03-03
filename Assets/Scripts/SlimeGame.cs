@@ -66,7 +66,7 @@ public class SlimeGame : MonoBehaviour {
     public void BuyAttackSpeed() {
         if (money > 0) {
             money -= attackSpeedCost;
-            attackSpeed+=.2f;
+            attackSpeed += 0.2f;
             attackSpeedCost++;//увеличим цену
             shoot.ChangeDelay(attackSpeed);
 

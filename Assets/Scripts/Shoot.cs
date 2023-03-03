@@ -4,12 +4,12 @@ using UnityEngine;
 public class Shoot : MonoBehaviour {
     public GameObject bulletPrefab;//ссылка на обьект пули
     public Transform shootPoint;
-    public float delayAttack = 20f;
+    public float delayAttack = 3f;
     public bool canShoot = true;
     public Transform closestEnemy;
-   public PlayerMovement playerMov;
+    public PlayerMovement playerMov;
     private void Update() {
-       
+
         closestEnemy = FindEnemy();
 
         if (closestEnemy != null && canShoot) {
@@ -22,8 +22,11 @@ public class Shoot : MonoBehaviour {
         }
     }
 
- public void   ChangeDelay(float someValue) {
-        delayAttack -= someValue  ;
+    public void ChangeDelay(float someValue) {
+        if (delayAttack > 0) {
+            delayAttack -= someValue;
+        }
+
     }
     private Transform FindEnemy() {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
