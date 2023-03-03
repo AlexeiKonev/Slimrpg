@@ -133,12 +133,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0ab0cca81f7334e85187c0bdfa548c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  maxHealth: 20
   enemyAttack: 2
+  moveSpeed: 4
+  attackDistance: 1.5
+  keepDistance: 0.2
   healthBar: {fileID: 678961656644889738}
-  damageTextPrefab: {fileID: 2136554762789026777, guid: 192cc80e3ef597f428f506c0d1751f67, type: 3}
-  healthBarPosition: {fileID: 5977146014906916044}
-  damageTextPosition: {fileID: 5977146014906916044}
+  damageTextPrefab: {fileID: 3062595157300214897, guid: fdd5514d25166444b9da8c86262c0b42, type: 3}
 --- !u!23 &6467773658649264911
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -258,7 +259,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 678961656644889738}
-  damageText: {fileID: 3062595157300214897, guid: fdd5514d25166444b9da8c86262c0b42, type: 3}
   targetTransform: {fileID: 5977146014906916044}
   offset: {x: 0, y: 0, z: 0}
 --- !u!114 &678961656644889738
