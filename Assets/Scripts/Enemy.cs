@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDmagebale {
     int health = 10;
+
+    public Action<GameObject> OnDeath { get; internal set; }
 
     public void TakeDamage(int damage) {
         if (health > 0) {

@@ -22,11 +22,18 @@ public class SlimeGame : MonoBehaviour {
     public int healthCost = 1;
 
     public static SlimeGame instance;
+
+    public GameObject prefabOfbattleArea;
+    public bool isAreaClear=false;
+
     void Awake() {
         if (instance == null) {
             instance = gameObject.GetComponent<SlimeGame>();
         }
 
+    }
+    private void Update() {
+       
     }
 
     public void BuyAttack() {
