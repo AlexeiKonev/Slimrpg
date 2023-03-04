@@ -9,18 +9,21 @@ public class SlimeGame : MonoBehaviour {
 
     public Text textMoney;
     public Text textAttack;
+    public Text textAttackSpeed;
     public Text textHealth;
 
     public Text textAttackCost;
+    public Text textSpeedAttackCost;
     public Text textHealthCost;
 
 
-    public int money = 3;
+    public int money = 23;
 
     public int attack = 1;
     public int health = 10;
 
     public int attackCost = 1;
+    public int attackSpeedCost = 1;
     public int healthCost = 1;
 
     public static SlimeGame instance;
@@ -30,8 +33,12 @@ public class SlimeGame : MonoBehaviour {
 
     public GameObject GameOverScreen;
 
-    private int attackSpeedCost;
+    
     private float attackSpeed;
+
+    public Button btnBuyAttack;
+    public Button btnBuySpeedAttack;
+    public Button btnBuyHealthAttack;
 
     void Awake() {
         if (instance == null) {
@@ -40,12 +47,30 @@ public class SlimeGame : MonoBehaviour {
         GameOverScreen.SetActive(false);
     }
     private void Update() {
-        if (money > 0) {
+        if (money <= 0) {
+            btnBuyAttack.enabled=false;
+            btnBuySpeedAttack.enabled = false;
+            btnBuyHealthAttack.enabled = false;
+        }
+        else if(money > 0) {
+            btnBuyAttack.enabled=true;  
+            btnBuySpeedAttack.enabled=true;
+            btnBuyHealthAttack.enabled = true;
+        }
+
+        if (money >= 0) {
             UpdateUI(textMoney, money);
         }
 
         UpdateUI(textAttack, attack);
         UpdateUI(textHealth, health);
+        UpdateUI(textAttackSpeed, (int)attackSpeed+1);
+
+        UpdateUI(textHealthCost, healthCost);
+        UpdateUI(textAttackCost, attackCost);
+        UpdateUI(textSpeedAttackCost, attackSpeedCost);
+
+       
 
     }
 
@@ -58,9 +83,12 @@ public class SlimeGame : MonoBehaviour {
 
             //изменим ui
 
-            UpdateUI(textMoney, money);
-            UpdateUI(textAttack, attack);
-            UpdateUI(textAttackCost, attackCost);
+            //UpdateUI(textMoney, money);
+            //UpdateUI(textAttack, attack);
+            //UpdateUI(textAttackCost, attackCost);
+        }
+        else {
+            return;
         }
     }
     public void BuyAttackSpeed() {
@@ -73,9 +101,12 @@ public class SlimeGame : MonoBehaviour {
 
             //изменим ui
 
-            UpdateUI(textMoney, money);
-            UpdateUI(textAttack, attack);
-            UpdateUI(textAttackCost, attackCost);
+            //UpdateUI(textMoney, money);
+            //UpdateUI(textAttack, attack);
+            //UpdateUI(textAttackCost, attackCost);
+        }
+        else {
+            return;
         }
     }
     public void BuyHealth() {
@@ -84,11 +115,14 @@ public class SlimeGame : MonoBehaviour {
             health++;
             attackCost++;
 
-            UpdateUI(textMoney, money);
-            UpdateUI(textHealth, health);
-            UpdateUI(textHealthCost, healthCost);
+            //UpdateUI(textMoney, money);
+            //UpdateUI(textHealth, health);
+            //UpdateUI(textHealthCost, healthCost);
 
 
+        }
+        else {
+            return;
         }
     }
     void UpdateUI(Text some, int change) {
@@ -96,7 +130,7 @@ public class SlimeGame : MonoBehaviour {
     }
     public void AddMoney() {
         money++;
-        UpdateUI(textMoney, money);
+        //UpdateUI(textMoney, money);
     }
     public void ShowGameOver() {
         GameOverScreen.SetActive(true);
